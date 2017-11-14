@@ -1,0 +1,8 @@
+net\sbr\backend\App.class
+net\sbr\backend\dto\Category.class
+net\sbr\backend\dao\CategoryDAO.class
+net\sbr\backend\dao\ProductDAO.class
+net\sbr\backend\daoimpl\ProductDAOImpl.class
+net\sbr\backend\config\HibernateConfig.class
+net\sbr\backend\dto\Product.class
+net\sbr\backend\daoimpl\CategoryDAOImpl.class

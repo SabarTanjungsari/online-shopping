@@ -12,6 +12,25 @@ body {
 	height: 100%;
 }
 
+.thumbnail img {
+    width: 100%;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+
+.thumbnail {
+    padding: 0;  
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
 .slide-image {
 	width: 100%;
 }
@@ -29,9 +48,7 @@ body {
                 padding-top: 56px;
         }
 }*/
-footer {
-	margin: 0;
-}
+
 /*
         custom styling
 */
@@ -44,8 +61,32 @@ footer {
 	
 }
 
-.footer {
+/*.footer {
 	position: absolute;
 	bottom: 0;
 	height: 60px;
+}*/
+
+.dataTableImg {
+	width: 100px;
+	height:100px;
+}
+
+.breadcrumb {
+  padding: 8px 15px;
+  margin-bottom: 22px;
+  list-style: none;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+.breadcrumb > li {
+  display: inline-block;
+}
+.breadcrumb > li + li:before {
+  content: ">\00a0";
+  padding: 0 5px;
+  color: #cccccc;
+}
+.breadcrumb > .active {
+  color: #b3b3b3;
 }
