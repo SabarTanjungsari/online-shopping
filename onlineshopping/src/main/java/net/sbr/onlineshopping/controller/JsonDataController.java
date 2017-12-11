@@ -15,18 +15,30 @@ import net.sbr.backend.dto.Product;
 @RequestMapping("/json/data")
 public class JsonDataController {
 
-	@Autowired
-	private ProductDAO productDAO;
-	
-	@RequestMapping("/all/products")
-	@ResponseBody
-	public List<Product> getAllProducts(){
-		return productDAO.listActiveProducts();
-	}
-	
-	@RequestMapping("/category/{id}/products")
-	@ResponseBody
-	public List<Product> getProductsByCategory(@PathVariable int id){
-		return productDAO.listActiveProductsByCategory(id);
-	}
+    @Autowired
+    private ProductDAO productDAO;
+
+    @RequestMapping("/all/products")
+    @ResponseBody
+    public List<Product> getAllProducts() {
+        return productDAO.listActiveProducts();
+    }
+
+    @RequestMapping("/admin/all/products")
+    @ResponseBody
+    public List<Product> getAllProductsForAdmin() {
+        return productDAO.list();
+    }
+    
+    @RequestMapping("/admin/{id}/product")
+    @ResponseBody
+    public Product getProductsForAdmin(@PathVariable int id) {
+        return productDAO.get(id);
+    }
+    
+    @RequestMapping("/category/{id}/products")
+    @ResponseBody
+    public List<Product> getProductsByCategory(@PathVariable int id) {
+        return productDAO.listActiveProductsByCategory(id);
+    }
 }
