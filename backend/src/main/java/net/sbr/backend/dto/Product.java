@@ -9,134 +9,153 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Product {
 
-	// private fields
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String code;
-	private String name;
-	private String brand;
-	@JsonIgnore
-	private String description;
+    // private fields
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String code;
 
-	@Column(name = "unit_price")
-	private double unitPrice;
-	private int quantity;
-	@Column(name = "is_active")
-	@JsonIgnore
-	private boolean active;
-	@Column(name = "category_id")
-	@JsonIgnore
-	private int categoryId;
-	@Column(name = "supplier_id")
-	@JsonIgnore
-	private int supplierId;
-	private int purchases;
-	private int views;
+    @NotBlank(message = "Please enter the Product Name!")
+    private String name;
+    @NotBlank(message = "Please enter the Brand Name!")
+    private String brand;
+    //@JsonIgnore
+    @NotBlank(message = "Please enter the description for Product!")
+    private String description;
 
-	// Default constuctor
-	public Product() {
-		this.code = "PRD" + UUID.randomUUID().toString().substring(26).toUpperCase();
-	}
+    @Column(name = "unit_price")
+    @Min(value = 1, message = "This price cannot be less than 1!")
+    private double unitPrice;
+    private int quantity;
+    @Column(name = "is_active")
+    private boolean active;
+    @Column(name = "category_id")
+    //@JsonIgnore
+    private int categoryId;
+    @Column(name = "supplier_id")
+    //@JsonIgnore
+    private int supplierId;
+    private int purchases;
+    private int views;
 
-	public int getId() {
-		return id;
-	}
+    @Transient
+    private MultipartFile file;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public MultipartFile getFile() {
+        return file;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    // Default constuctor
+    public Product() {
+        this.code = "PRD" + UUID.randomUUID().toString().substring(26).toUpperCase();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getBrand() {
-		return brand;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public double getUnitPrice() {
-		return unitPrice;
-	}
+    public String getBrand() {
+        return brand;
+    }
 
-	public void setUnitPrice(double unitPrice) {
-		this.unitPrice = unitPrice;
-	}
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
-	public int getQuantity() {
-		return quantity;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public boolean isActive() {
-		return active;
-	}
+    public double getUnitPrice() {
+        return unitPrice;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
 
-	public int getCategoryId() {
-		return categoryId;
-	}
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-	public int getSupplierId() {
-		return supplierId;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
-	public void setSupplierId(int supplierId) {
-		this.supplierId = supplierId;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public int getPurchases() {
-		return purchases;
-	}
+    public int getCategoryId() {
+        return categoryId;
+    }
 
-	public void setPurchases(int purchases) {
-		this.purchases = purchases;
-	}
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
 
-	public int getViews() {
-		return views;
-	}
+    public int getSupplierId() {
+        return supplierId;
+    }
 
-	public void setViews(int views) {
-		this.views = views;
-	}
+    public void setSupplierId(int supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public int getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(int purchases) {
+        this.purchases = purchases;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
 
 }
