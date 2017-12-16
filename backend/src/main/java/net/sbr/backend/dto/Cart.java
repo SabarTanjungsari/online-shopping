@@ -5,6 +5,7 @@
  */
 package net.sbr.backend.dto;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +18,10 @@ import javax.persistence.OneToOne;
  * @author sabar
  */
 @Entity
-public class Cart {
+public class Cart implements Serializable {
 
+    private final static long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

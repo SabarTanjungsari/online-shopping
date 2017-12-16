@@ -1,7 +1,12 @@
-/home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/dto/Category.java
+/home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/daoimpl/UserDAOImpl.java
 /home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/dto/Product.java
 /home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/daoimpl/CategoryDAOImpl.java
 /home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/App.java
+/home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/dao/UserDAO.java
+/home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/dto/Cart.java
+/home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/dto/Category.java
+/home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/dto/Address.java
+/home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/dto/User.java
 /home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/config/HibernateConfig.java
 /home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/dao/ProductDAO.java
 /home/sabar/NetBeansProjects/online-shopping/backend/src/main/java/net/sbr/backend/dao/CategoryDAO.java

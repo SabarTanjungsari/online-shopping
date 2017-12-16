@@ -17,100 +17,109 @@ import net.sbr.onlineshopping.exception.ProductNotFoundException;
 @Controller
 public class PageController {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	@Autowired
-	private CategoryDAO categoryDAO;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private ProductDAO productDAO;
-	
-	@RequestMapping(value = { "/", "/home", "/index" })
-	public ModelAndView index() {
-		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("title", "Home");
+    @Autowired
+    private CategoryDAO categoryDAO;
 
-		logger.info("Inside PageController index method - INFO");
-		logger.debug("Inside PageController index method - DEBUG");
-		
-		// passing the list of categories
-		mv.addObject("categories", categoryDAO.list());
+    @Autowired
+    private ProductDAO productDAO;
 
-		mv.addObject("userClickHome", true);
-		return mv;
-	}
+    @RequestMapping(value = {"/", "/home", "/index"})
+    public ModelAndView index() {
+        ModelAndView mv = new ModelAndView("page");
+        mv.addObject("title", "Home");
 
-	@RequestMapping(value = { "/about" })
-	public ModelAndView about() {
-		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("title", "About Us");
-		mv.addObject("userClickAbout", true);
-		return mv;
-	}
+        logger.info("Inside PageController index method - INFO");
+        logger.debug("Inside PageController index method - DEBUG");
 
-	@RequestMapping(value = { "/contact" })
-	public ModelAndView contact() {
-		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("title", "Contact Us");
-		mv.addObject("userClickContact", true);
-		return mv;
-	}
+        // passing the list of categories
+        mv.addObject("categories", categoryDAO.list());
 
-	/*
+        mv.addObject("userClickHome", true);
+        return mv;
+    }
+
+    @RequestMapping(value = {"/about"})
+    public ModelAndView about() {
+        ModelAndView mv = new ModelAndView("page");
+        mv.addObject("title", "About Us");
+        mv.addObject("userClickAbout", true);
+        return mv;
+    }
+
+    @RequestMapping(value = {"/contact"})
+    public ModelAndView contact() {
+        ModelAndView mv = new ModelAndView("page");
+        mv.addObject("title", "Contact Us");
+        mv.addObject("userClickContact", true);
+        return mv;
+    }
+
+    /*
 	 * Methods to load all the products and based on category
-	 */
+     */
+    @RequestMapping(value = {"/show/all/products"})
+    public ModelAndView showAllProducts() {
+        ModelAndView mv = new ModelAndView("page");
+        mv.addObject("title", "All Products");
 
-	@RequestMapping(value = { "/show/all/products" })
-	public ModelAndView showAllProducts() {
-		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("title", "All Products");
+        // passing the list of categories
+        mv.addObject("categories", categoryDAO.list());
 
-		// passing the list of categories
-		mv.addObject("categories", categoryDAO.list());
+        mv.addObject("userClickAllProducts", true);
+        return mv;
+    }
 
-		mv.addObject("userClickAllProducts", true);
-		return mv;
-	}
+    @RequestMapping(value = {"/show/category/{id}/products"})
+    public ModelAndView showCategoryProducts(@PathVariable("id") int id) {
+        ModelAndView mv = new ModelAndView("page");
+        mv.addObject("title", "Home");
 
-	@RequestMapping(value = { "/show/category/{id}/products" })
-	public ModelAndView showCategoryProducts(@PathVariable("id") int id) {
-		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("title", "Home");
+        // categoryDAO to fetch a single category
+        Category category = null;
 
-		// categoryDAO to fetch a single category
-		Category category = null;
-		
-		category = categoryDAO.get(id);
-		
-		mv.addObject("title", category.getName());
+        category = categoryDAO.get(id);
 
-		// passing the list of categories
-		mv.addObject("categories", categoryDAO.list());
+        mv.addObject("title", category.getName());
 
-		// passing the single category object
-		mv.addObject("category",  category);
-				
-		mv.addObject("userClickCategoryProducts", true);
-		return mv;
-	}
-	
-	@RequestMapping(value = "/show/{id}/product")
-	public ModelAndView showSingleProduct(@PathVariable int id) throws ProductNotFoundException {
-		ModelAndView mv = new ModelAndView("page");
-		Product product = productDAO.get(id);
-		
-		if(product == null) throw new ProductNotFoundException();
-		
-		// update the view count
-		product.setViews(product.getViews() + 1);
-		productDAO.update(product);
-		// --------------------------------------
-		
-		mv.addObject("title", product.getName());
-		mv.addObject("product", product);
-		
-		mv.addObject("userClickShowProduct", true);
-		
-		return mv;
-	}
+        // passing the list of categories
+        mv.addObject("categories", categoryDAO.list());
+
+        // passing the single category object
+        mv.addObject("category", category);
+
+        mv.addObject("userClickCategoryProducts", true);
+        return mv;
+    }
+
+    @RequestMapping(value = "/show/{id}/product")
+    public ModelAndView showSingleProduct(@PathVariable int id) throws ProductNotFoundException {
+        ModelAndView mv = new ModelAndView("page");
+        Product product = productDAO.get(id);
+
+        if (product == null) {
+            throw new ProductNotFoundException();
+        }
+
+        // update the view count
+        product.setViews(product.getViews() + 1);
+        productDAO.update(product);
+        // --------------------------------------
+
+        mv.addObject("title", product.getName());
+        mv.addObject("product", product);
+
+        mv.addObject("userClickShowProduct", true);
+
+        return mv;
+    }
+
+    @RequestMapping(value = {"/register"})
+    public ModelAndView register() {
+        ModelAndView mv = new ModelAndView("page");
+        mv.addObject("title", "Contact Us");
+        mv.addObject("userClickContact", true);
+        return mv;
+    }
 }
