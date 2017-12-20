@@ -1,5 +1,8 @@
 package net.sbr.onlineshopping.controller;
 
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,11 @@ import net.sbr.backend.dao.ProductDAO;
 import net.sbr.backend.dto.Category;
 import net.sbr.backend.dto.Product;
 import net.sbr.onlineshopping.exception.ProductNotFoundException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PageController {
@@ -62,6 +70,10 @@ public class PageController {
     @RequestMapping(value = {"/show/all/products"})
     public ModelAndView showAllProducts() {
         ModelAndView mv = new ModelAndView("page");
+        //Product product = productDAO.get(1);
+        Product product = new Product();
+        mv.addObject("product", product);
+
         mv.addObject("title", "All Products");
 
         // passing the list of categories
@@ -74,6 +86,9 @@ public class PageController {
     @RequestMapping(value = {"/show/category/{id}/products"})
     public ModelAndView showCategoryProducts(@PathVariable("id") int id) {
         ModelAndView mv = new ModelAndView("page");
+        Product product = new Product();
+        mv.addObject("product", product);
+        
         mv.addObject("title", "Home");
 
         // categoryDAO to fetch a single category
@@ -121,5 +136,56 @@ public class PageController {
         mv.addObject("title", "Contact Us");
         mv.addObject("userClickContact", true);
         return mv;
+    }
+
+    /* Login */
+    @RequestMapping(value = {"/login"})
+    public ModelAndView login(@RequestParam(name = "error", required = false) String error,
+            @RequestParam(name = "logout", required = false) String logout) {
+        ModelAndView mv = new ModelAndView("login");
+
+        if (error != null) {
+            mv.addObject("message", "Invalid Username or Password!");
+        }
+        
+        if (logout != null) {
+            mv.addObject("logout", "User has successfully logged out!");
+        }
+
+        mv.addObject("title", "Login");
+        return mv;
+    }
+
+    @RequestMapping(value = {"/access-denied"})
+    public ModelAndView accessDenied() {
+        ModelAndView mv = new ModelAndView("error");
+        mv.addObject("title", "403 - Access Denied");
+        mv.addObject("errorTitle", "Aha! Caught you.");
+        mv.addObject("errorDescription", "Your are not authorized to view this page!");
+        return mv;
+    }
+    
+    /* Logout */
+    @RequestMapping(value = "/perform-logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if(authentication != null){
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        
+        return "redirect:/login?logout";
+    }
+    
+
+    // Returning categories for all the request mapping
+    @ModelAttribute("categories")
+    public List<Category> getCategories() {
+        return categoryDAO.list();
+    }
+
+    @ModelAttribute("category")
+    public Category getCategory() {
+        return new Category();
     }
 }

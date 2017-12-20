@@ -21,8 +21,17 @@ $(function () {
             break;
     }
 
-// code for jquery dataTable
-// create a dataset
+    // to takle the csrf token
+    var token = $('meta[name="_csrf"]').attr('content');
+    var header = $('meta[name="_csrf_header"]').attr('content');
+    if (token.length > 0 && header.length > 0) {
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token)
+        });
+    }
+
+    // code for jquery dataTable
+    // create a dataset
 
 
     var $table = $('#productListTable');
@@ -78,10 +87,18 @@ $(function () {
                     mRender: function (data, type, row) {
                         var str = '';
                         str += '<a href="' + contextRoot + '/show/' + data + '/product/" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160';
-                        if (row.quantity < 1) {
-                            str += '<a href="javascript:void(0)" class="btn btn-success disabled"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+
+                        if (userRole == 'ADMIN') {
+                            //str += '<a href="' + contextRoot + '/manage/' + data + '/product/" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>';
+                            str += '<button type="button" class="btn btn-warning" onclick="editProduct(' + data + ')">';
+                            str += '<span class="glyphicon glyphicon-pencil"></button>';
                         } else {
-                            str += '<a href="' + contextRoot + '/cart/add/' + data + '/product/" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+                            if (row.quantity < 1) {
+                                str += '<a href="javascript:void(0)" class="btn btn-success disabled"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+                            } else {
+                                str += '<a href="' + contextRoot + '/cart/add/' + data + '/product/" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+
+                            }
                         }
 
                         return str;
@@ -280,13 +297,47 @@ $(function () {
     }
 
     // --------------------------------------------
-});
+    var $loginForm = $('#loginForm');
+    if ($loginForm.length) {
+        $loginForm.validate({
+            rules: {
+                username: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true
+                }
+            },
+            messages: {
+                username: {
+                    required: 'Please enter the username!',
+                    email: 'Please enter valid email address!'
+                },
+                password: {
+                    required: 'Please enter the password!'
+                }
+            },
+            errorElement: 'em',
+            errorPlacement: function (error, element) {
+                // add the class of help-block
+                error.addClass('help-block');
 
+                // addd the error element after the input element
+                error.insertAfter(element);
+            }
+        });
+    }
+
+    // --------------------------------------------
+    // --------------------------------------------
+});
 
 function editProduct(id) {
     //alert(id);
     var urlAction = window.contextRoot + '/json/data/admin/' + id + '/product';
     $('#productForm')[0].reset();
+    $("#myProductModal").modal('show');
     $('#addCategory').addClass('hidden');
     $.ajax({
         url: urlAction,
@@ -313,7 +364,6 @@ function editProduct(id) {
             alert('Error get data from ajax');
         }
     });
-    //$("#myProductModal").modal('show');
 }
 
 function addProduct() {

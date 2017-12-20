@@ -16,7 +16,6 @@
     ">
 
     <context:component-scan base-package="net.sbr.onlineshopping"/>
-    <context:component-scan base-package="net.sbr.backend"/>
 	
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">

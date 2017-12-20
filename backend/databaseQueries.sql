@@ -18,7 +18,7 @@ CREATE TABLE user_detail(
 	last_name VARCHAR(50),
 	role VARCHAR(50),
 	enabled BOOLEAN,
-	password VARCHAR(50),
+	password VARCHAR(60),
 	email VARCHAR(100),
 	contact_number VARCHAR(15),
 	CONSTRAINT pk_user_id PRIMARY KEY(id)
@@ -26,15 +26,8 @@ CREATE TABLE user_detail(
 
 INSERT INTO user_detail
 (first_name, last_name, role, enabled, password, email, contact_number)
-VALUES ('Sabar', 'Tanjungsari', 'ADMIN', true, 'admin', 'sabar@tondira.com', '888888888');
+VALUES ('Sabar', 'Tanjungsari', 'ADMIN', true, '$2b$10$ab421cqI023V2vTNLW5f3eF6ADLdpqYe32rxyHqMevEaVDzXWaLOe', 'sabar@tondira.com', '888888888');
 
-INSERT INTO user_detail
-(first_name, last_name, role, enabled, password, email, contact_number)
-VALUES ('Sup', 'Plier', 'SUPPLIER', true, '1234', 'sup@tondira.com', '999999999');
-
-INSERT INTO user_detail
-(first_name, last_name, role, enabled, password, email, contact_number)
-VALUES ('Plier', 'Sup', 'SUPPLIER', true, '4321', 'plier@tondira.com', '777777');
 
 CREATE TABLE product(
 	id IDENTITY,
@@ -54,17 +47,17 @@ CREATE TABLE product(
 	CONSTRAINT fk_supplier_category_id FOREIGN KEY(supplier_id) REFERENCES user_detail(id)
 );
 
-INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id)
-VALUES('PRDABC123DEFX', 'iPhone 5s', 'apple', 'This is one of the best phone available the market right now!', 18000, 5, true, 3, 2);
+INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id, purchases, views)
+VALUES('PRDABC123DEFX', 'iPhone 5s', 'apple', 'This is one of the best phone available the market right now!', 18000, 5, true, 3, 2, 0, 0);
 
-INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id)
-VALUES('PRDEF123DEFX', 'Samsung s7', 'Samsung', 'A smart phone by samsung!', 3200, 2, true, 3, 3);
+INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id, purchases, views)
+VALUES('PRDEF123DEFX', 'Samsung s7', 'Samsung', 'A smart phone by samsung!', 3200, 2, true, 3, 3, 0, 0);
 
-INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id)
-VALUES('PRDPQRWGTX', 'Google Pixel', 'google', 'This is one of the best android smart phone in the market right now!', 57000, 5, true, 3, 2);
+INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id, purchases, views)
+VALUES('PRDPQRWGTX', 'Google Pixel', 'google', 'This is one of the best android smart phone in the market right now!', 57000, 5, true, 3, 2, 0, 0);
 
-INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id)
-VALUES('PRDMNO123PQRX', 'Maxbook Pro', 'apple', 'This is one of the best laptops available in the market right now!', 54000, 3, true, 1, 2);
+INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id, purchases, views)
+VALUES('PRDMNO123PQRX', 'Maxbook Pro', 'apple', 'This is one of the best laptops available in the market right now!', 54000, 3, true, 1, 2, 0, 0);
 
-INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id)
-VALUES('PRDABCXYZDEFX', 'Dell Latitude E6510', 'dell', 'This is one of the best laptops series from dell thet can be used!', 4800, 5, true, 1, 3);
+INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id, purchases, views)
+VALUES('PRDABCXYZDEFX', 'Dell Latitude E6510', 'dell', 'This is one of the best laptops series from dell thet can be used!', 4800, 5, true, 1, 3, 0, 0);

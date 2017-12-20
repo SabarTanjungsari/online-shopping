@@ -169,7 +169,7 @@ public class UserTestCase {
         
         address.setUser(user);
         assertEquals("Failed to add address", true, userDAO.addAddress(address));
-    }*/
+    }
     @Test
     public void testGetAddress() {
         user = userDAO.getByEmail("hr@gmail.com");
@@ -178,5 +178,5 @@ public class UserTestCase {
                 userDAO.listShippingAddress(user).size());
         assertEquals("Failed to fetch the billing of address and size does not match!", "Mumbai",
                 userDAO.getBillingAddress(user).getCity());
-    }
+    }*/
 }
