@@ -3,11 +3,14 @@ net/sbr/backend/dto/Product.class
 net/sbr/backend/dao/UserDAO.class
 net/sbr/backend/dao/ProductDAO.class
 net/sbr/backend/daoimpl/UserDAOImpl.class
+net/sbr/backend/daoimpl/CartLineDAOImpl.class
 net/sbr/backend/dto/Cart.class
 net/sbr/backend/dto/Category.class
+net/sbr/backend/dto/CartLine.class
 net/sbr/backend/config/HibernateConfig.class
 net/sbr/backend/dto/Address.class
 net/sbr/backend/dao/CategoryDAO.class
 net/sbr/backend/App.class
 net/sbr/backend/dto/User.class
 net/sbr/backend/daoimpl/ProductDAOImpl.class
+net/sbr/backend/dao/CartLineDAO.class

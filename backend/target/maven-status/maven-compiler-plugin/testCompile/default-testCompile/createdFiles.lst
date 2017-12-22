@@ -1,3 +1,4 @@
+net/sbr/backend/test/CartLineTestCase.class
 net/sbr/backend/AppTest.class
 net/sbr/backend/test/ProductTestCase.class
 net/sbr/backend/test/CategoryTestCase.class

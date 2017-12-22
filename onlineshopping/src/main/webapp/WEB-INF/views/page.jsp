@@ -83,18 +83,24 @@
 
                 <!-- Loading only when user click show Product -->
                 <c:if
-                    test="${userClickShowProduct}">
+                    test="${userClickShowProduct == true}">
                     <%@include file="singleProduct.jsp"%>                    
                     <%@include file="shared/editProduct.jsp" %>
                 </c:if>
 
                 <!-- Loading only when user click manage Products -->
                 <c:if
-                    test="${userClickManageProducts}">
+                    test="${userClickManageProducts == true}">
                     <%@include file="manageProducts.jsp"%>
                     <%@include file="shared/editProduct.jsp" %>
                 </c:if>
 
+                <!-- Loading only when user click manage Products -->
+                <c:if
+                    test="${userClickShowCart == true}">
+                    <%@include file="cart.jsp" %>
+                </c:if>
+                
             </div>
 
             <%@include file="./shared/footer.jsp"%>
