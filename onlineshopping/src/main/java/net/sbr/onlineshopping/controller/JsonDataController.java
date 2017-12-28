@@ -29,16 +29,28 @@ public class JsonDataController {
     public List<Product> getAllProductsForAdmin() {
         return productDAO.list();
     }
-    
+
     @RequestMapping("/admin/{id}/product")
     @ResponseBody
     public Product getProductsForAdmin(@PathVariable int id) {
         return productDAO.get(id);
     }
-    
+
     @RequestMapping("/category/{id}/products")
     @ResponseBody
     public List<Product> getProductsByCategory(@PathVariable int id) {
         return productDAO.listActiveProductsByCategory(id);
+    }
+
+    @RequestMapping("/mv/products")
+    @ResponseBody
+    public List<Product> getMostViewedProducts() {
+        return productDAO.getProductsByParam("views", 5);
+    }
+
+    @RequestMapping("/mp/products")
+    @ResponseBody
+    public List<Product> getMostPurchasedProducts() {
+        return productDAO.getProductsByParam("purchases", 5);
     }
 }

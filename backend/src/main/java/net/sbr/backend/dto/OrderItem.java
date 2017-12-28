@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,8 +21,8 @@ import javax.persistence.Table;
  * @author sabar
  */
 @Entity
-@Table(name = "cart_line")
-public class CartLine implements Serializable {
+@Table(name = "order_item")
+public class OrderItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,19 +33,17 @@ public class CartLine implements Serializable {
     @OneToOne
     private Product product;
 
-    @Column(name = "cart_id")
-    private int cartId;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private OrderDetail orderDetail;
+
+    @Column(name = "buying_price")
+    private double buyingPrice;
 
     @Column(name = "product_count")
     private int productCount;
 
     private double total;
-
-    @Column(name = "buying_price")
-    private double buyingPrice;
-
-    @Column(name = "is_available")
-    private boolean available = true;
 
     public int getId() {
         return id;
@@ -61,12 +61,20 @@ public class CartLine implements Serializable {
         this.product = product;
     }
 
-    public int getCartId() {
-        return cartId;
+    public OrderDetail getOrderDetail() {
+        return orderDetail;
     }
 
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
+    public void setOrderDetail(OrderDetail orderDetail) {
+        this.orderDetail = orderDetail;
+    }
+
+    public double getBuyingPrice() {
+        return buyingPrice;
+    }
+
+    public void setBuyingPrice(double buyingPrice) {
+        this.buyingPrice = buyingPrice;
     }
 
     public int getProductCount() {
@@ -84,21 +92,4 @@ public class CartLine implements Serializable {
     public void setTotal(double total) {
         this.total = total;
     }
-
-    public double getBuyingPrice() {
-        return buyingPrice;
-    }
-
-    public void setBuyingPrice(double buyingPrice) {
-        this.buyingPrice = buyingPrice;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
 }

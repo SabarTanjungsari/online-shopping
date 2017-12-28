@@ -9,6 +9,7 @@ import java.util.List;
 import net.sbr.backend.dao.CartLineDAO;
 import net.sbr.backend.dto.Cart;
 import net.sbr.backend.dto.CartLine;
+import net.sbr.backend.dto.OrderDetail;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -53,7 +54,7 @@ public class CartLineDAOImpl implements CartLineDAO {
     }
 
     @Override
-    public boolean delete(CartLine cartLine) {
+    public boolean remove(CartLine cartLine) {
         try {
             sessionFactory.getCurrentSession().delete(cartLine);
             return true;
@@ -104,6 +105,16 @@ public class CartLineDAOImpl implements CartLineDAO {
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addOrderDetail(OrderDetail orderDetail) {
+        try {
+            sessionFactory.getCurrentSession().persist(orderDetail);
+            return true;
+        } catch (Exception ex) {
             return false;
         }
     }

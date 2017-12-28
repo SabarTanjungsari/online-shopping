@@ -9,13 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
-public class Product {
+public class Product implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     // private fields
     @Id

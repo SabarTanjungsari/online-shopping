@@ -51,10 +51,10 @@ INSERT INTO product(code, name, brand, description, unit_price, quantity, is_act
 VALUES('PRDABC123DEFX', 'iPhone 5s', 'apple', 'This is one of the best phone available the market right now!', 18000, 5, true, 3, 2, 0, 0);
 
 INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id, purchases, views)
-VALUES('PRDEF123DEFX', 'Samsung s7', 'Samsung', 'A smart phone by samsung!', 3200, 2, true, 3, 3, 0, 0);
+VALUES('PRDDEF123DEFX', 'Samsung s7', 'Samsung', 'A smart phone by samsung!', 3200, 2, true, 3, 3, 0, 0);
 
 INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id, purchases, views)
-VALUES('PRDPQRWGTX', 'Google Pixel', 'google', 'This is one of the best android smart phone in the market right now!', 57000, 5, true, 3, 2, 0, 0);
+VALUES('PRDPQR123WGTX', 'Google Pixel', 'google', 'This is one of the best android smart phone in the market right now!', 57000, 5, true, 3, 2, 0, 0);
 
 INSERT INTO product(code, name, brand, description, unit_price, quantity, is_active, category_id, supplier_id, purchases, views)
 VALUES('PRDMNO123PQRX', 'Maxbook Pro', 'apple', 'This is one of the best laptops available in the market right now!', 54000, 3, true, 1, 2, 0, 0);

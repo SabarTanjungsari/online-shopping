@@ -38,6 +38,30 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User getByEmail(String email) {
+        String selectQuery = "FROM User WHERE email = :email";
+        try {
+            return sessionFactory.getCurrentSession()
+                    .createQuery(selectQuery, User.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (Exception ex) {
+            //ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public User get(int id) {
+        try {
+            return sessionFactory.getCurrentSession().get(User.class, id);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+
+    @Override
     public boolean addAddress(Address address) {
         try {
             sessionFactory.getCurrentSession().persist(address);
@@ -49,26 +73,26 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean updateCart(Cart cart) {
+    public List<Address> listShippingAddress(User user) {
+        String selectQuery = "FROM Address WHERE user = :user AND shipping = :shipping";
         try {
-            sessionFactory.getCurrentSession().update(cart);
-            return true;
+            return sessionFactory.getCurrentSession()
+                    .createQuery(selectQuery, Address.class)
+                    .setParameter("user", user)
+                    .setParameter("shipping", true)
+                    .getResultList();
         } catch (Exception ex) {
             ex.printStackTrace();
-            return false;
+            return null;
         }
     }
 
     @Override
-    public User getByEmail(String email) {
-        String selectQuery = "FROM User WHERE email = :email";
+    public Address getAddress(int addressId) {
         try {
-            return sessionFactory.getCurrentSession()
-                    .createQuery(selectQuery, User.class)
-                    .setParameter("email", email)
-                    .getSingleResult();
+            return sessionFactory.getCurrentSession().get(Address.class, addressId);
         } catch (Exception ex) {
-            //ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }
@@ -89,17 +113,23 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<Address> listShippingAddress(User user) {
-        String selectQuery = "FROM Address WHERE user = :user AND shipping = :shipping";
+    public boolean updateAddress(Address address) {
         try {
-            return sessionFactory.getCurrentSession()
-                    .createQuery(selectQuery, Address.class)
-                    .setParameter("user", user)
-                    .setParameter("shipping", true)
-                    .getResultList();
+            sessionFactory.getCurrentSession().update(address);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateCart(Cart cart) {
+        try {
+            sessionFactory.getCurrentSession().update(cart);
+            return true;
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
+            return false;
         }
     }
 }

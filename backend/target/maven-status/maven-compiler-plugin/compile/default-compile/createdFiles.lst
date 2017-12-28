@@ -1,3 +1,4 @@
+net/sbr/backend/dto/OrderDetail.class
 net/sbr/backend/daoimpl/CategoryDAOImpl.class
 net/sbr/backend/dto/Product.class
 net/sbr/backend/dao/UserDAO.class
@@ -12,5 +13,6 @@ net/sbr/backend/dto/Address.class
 net/sbr/backend/dao/CategoryDAO.class
 net/sbr/backend/App.class
 net/sbr/backend/dto/User.class
+net/sbr/backend/dto/OrderItem.class
 net/sbr/backend/daoimpl/ProductDAOImpl.class
 net/sbr/backend/dao/CartLineDAO.class

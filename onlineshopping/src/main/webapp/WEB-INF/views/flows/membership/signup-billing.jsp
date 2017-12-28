@@ -1,6 +1,6 @@
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
-<%@include file="../shared/flows-header.jsp" %>
+<%@include file="../flows-shared/flows-header.jsp" %>
 
 <div class="container">
 
@@ -62,7 +62,7 @@
                                 <button type="submit" name="_eventId_personal" class="btn btn-primary">
                                     <span class="glyphicon glyphicon-chevron-left"></span> Pervious - Personal 
                                 </button>
-                                
+
                                 <button type="submit" name="_eventId_confirm" class="btn btn-primary">
                                     Next - Confirm <span class="glyphicon glyphicon-chevron-right"></span> 
                                 </button>
@@ -76,4 +76,4 @@
 
 </div>
 
-<%@include file="../shared/flows-footer.jsp" %>
+<%@include file="../flows-shared/flows-footer.jsp" %>

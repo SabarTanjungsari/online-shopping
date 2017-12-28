@@ -16,10 +16,16 @@ import net.sbr.backend.dto.User;
  */
 public interface UserDAO {
     
-    boolean addUser(User user);
+    // user related operation
     User getByEmail(String email);
+    User get(int id);
     
+    boolean addUser(User user);
+    
+    // adding and updating a new address
+    Address getAddress(int addressId);
     boolean addAddress(Address address);
+    boolean updateAddress(Address address);    
     Address getBillingAddress(User user);
     List<Address> listShippingAddress(User user);
     

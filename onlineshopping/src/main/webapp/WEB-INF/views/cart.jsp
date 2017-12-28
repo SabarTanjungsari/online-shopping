@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="availableCount" value="${userModel.cart.cartLines}" />
 <div class="container">
     <c:if test="${not empty message}">
         <div class="alert alert-info">
@@ -23,30 +23,30 @@
                 </thead>
                 <tbody>
 
-                    <c:forEach items="${cartLines}" var="cartLine">
-                        <tr>
-                            <td data-th="Product">
-                                <div class="row">
-                                    <div class="col-sm-2 hidden-xs"><img src="${images}/${cartLine.product.code}.jpg" alt="${cartLine.product.name}" class="img-responsive cartImg"/>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <h4 class="nomargin">${cartLine.product.name}</h4>
-                                        <p>Brand - ${cartLine.product.brand}</p>
-                                        <p>Description - ${cartLine.product.description}</p>
-                                    </div>
+                <c:forEach items="${cartLines}" var="cartLine">
+                    <tr>
+                        <td data-th="Product">
+                            <div class="row">
+                                <div class="col-sm-2 hidden-xs"><img src="${images}/${cartLine.product.code}.jpg" alt="${cartLine.product.name}" class="img-responsive cartImg"/>
                                 </div>
-                            </td>
-                            <td data-th="Price">&#x52;&#x70; ${cartLine.buyingPrice}</td>
-                            <td data-th="Quantity">
-                                <input type="number" id="count_${cartLine.id}" min="1" max="3" class="form-control text-center" value="${cartLine.productCount}">
-                            </td>
-                            <td data-th="Subtotal" class="text-center">&#x52;&#x70; ${cartLine.total}</td>
-                            <td class="actions" data-th="">
-                                <button type="button" name="refreshCart" value="${cartLine.id}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-refresh"></span></button>
-                                <a href="${contextRoot}/cart/${cartLine.id}/delete" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>								
-                            </td>
-                        </tr>
-                    </c:forEach>
+                                <div class="col-sm-10">
+                                    <h4 class="nomargin">${cartLine.product.name}</h4>
+                                    <p>Brand - ${cartLine.product.brand}</p>
+                                    <p>Description - ${cartLine.product.description}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-th="Price">&#x52;&#x70; ${cartLine.buyingPrice}</td>
+                        <td data-th="Quantity">
+                            <input type="number" id="count_${cartLine.id}" min="1" max="3" class="form-control text-center" value="${cartLine.productCount}">
+                        </td>
+                        <td data-th="Subtotal" class="text-center">&#x52;&#x70; ${cartLine.total}</td>
+                        <td class="actions" data-th="">
+                            <button type="button" name="refreshCart" value="${cartLine.id}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-refresh"></span></button>
+                            <a href="${contextRoot}/cart/${cartLine.id}/delete" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>								
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
                 <tfoot>
                     <tr class="visible-xs">
@@ -56,8 +56,24 @@
                         <td><a href="${contextRoot}/show/all/products" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Continue Shopping</a></td>
                         <td colspan="2" class="hidden-xs"></td>
                         <td class="hidden-xs text-center"><strong>Total &#x52;&#x70; ${userModel.cart.grandTotal}</strong></td>
-                        <td><a href="#" class="btn btn-success btn-block">Checkout <span class="glyphicon glyphicon-chevron-right"></span></a></td>
-                    </tr>
+
+                <c:choose>
+                    <c:when test="${availableCount != 0}">
+                        <td>
+                            <a href="${contextRoot}/cart/validate" class="btn btn-success btn-block">
+                                Checkout <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>
+                            <a href="javascript:void(0)" class="btn btn-success btn-block disabled">
+                                <strike>Checkout <span class="glyphicon glyphicon-chevron-right"></span></strike>
+                            </a>
+                        </td>
+                    </c:otherwise>
+                </c:choose>
+                </tr>
                 </tfoot>
             </table>
         </c:when>
@@ -65,6 +81,11 @@
             <div class="jumbotron">
                 <div class="text-center">
                     <h1>Your cart is empty!</h1>
+                    <td>
+                        <a href="${contextRoot}/show/all/products" class="btn btn-success">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                        </a>
+                    </td>
                 </div>
             </div>
         </c:otherwise>
